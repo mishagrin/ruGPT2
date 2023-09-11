@@ -185,7 +185,7 @@ def add_training_args(parser):
     group.add_argument('--DDP-impl', default='local',
                        help='which DistributedDataParallel implementation '
                        'to use. One of [local, torch]')
-    group.add_argument('--local_rank', type=int, default=None,
+    group.add_argument('--local-rank', type=int, default=os.environ['LOCAL_RANK'],
                        help='local rank passed from distributed launcher')
     # autoresume
     group.add_argument('--adlr-autoresume', action='store_true',
@@ -345,17 +345,24 @@ def add_data_args(parser):
 
 def get_args():
     """Parse all the args."""
-
+    print('Parsing args')
     parser = argparse.ArgumentParser(description='PyTorch BERT Model')
+    print('1')
     parser = add_model_config_args(parser)
+    print('2')
     parser = add_fp16_config_args(parser)
+    print('3')
     parser = add_training_args(parser)
+    print('4')
     parser = add_evaluation_args(parser)
+    print('5')
     parser = add_text_generate_args(parser)
+    print('6')
     parser = add_data_args(parser)
+    print('7')
 
     args = parser.parse_args()
-
+    print('Args:', args)
     if not args.train_data and not args.train_data_path:
         print('WARNING: No training data specified')
 

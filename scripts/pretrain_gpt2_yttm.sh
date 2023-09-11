@@ -2,7 +2,7 @@
 
 # Runs the "345M" parameter model
 
-GPUS_PER_NODE=2
+GPUS_PER_NODE=1
 # Change for multinode config
 MASTER_ADDR=localhost
 MASTER_PORT=6000
@@ -22,20 +22,20 @@ python3 -m torch.distributed.launch $DISTRIBUTED_ARGS \
        --seq-length 1024 \
        --max-position-embeddings 1024 \
        --train-iters 320000 \
-       --save ../../checkpoints/gpt2_345m \
-       --load ../../checkpoints/gpt2_345m \
-       --tensorboard-dir ../../logs/gpt2_345m \
+       --save /home/mishagrin/_repos/ruGPT2/checkpoints/gpt2_345m \
+       --load /home/mishagrin/_repos/ruGPT2/checkpoints/gpt2_345m \
+       --tensorboard-dir /home/mishagrin/_repos/ruGPT2/logs/gpt2_345m \
        --log-interval 100 \
        --resume-dataloader \
-       --train-data ../../data/train.json \
+       --train-data /home/mishagrin/_repos/ruGPT2/data/dataset/train.json \
        --text-key text \
        --loose-json \
        --lazy-loader \
        --tokenizer-type RubertaBPETokenizer \
-       --tokenizer-path ../../data/vocab_50000.bpe \
+       --tokenizer-path /home/mishagrin/_repos/ruGPT2/data/poetry_vocab_2000.model \
        --save-interval 2000 \
        --eval-interval 2000 \
-       --vocab-size 50000 \
+       --vocab-size 2000 \
        --cache-dir cache \
        --split 949,50,1 \
        --distributed-backend nccl \

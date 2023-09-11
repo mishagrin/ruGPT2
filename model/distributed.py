@@ -25,7 +25,8 @@ class DistributedDataParallel(Module):
 
     def __init__(self, module):
         super(DistributedDataParallel, self).__init__()
-        self.warn_on_half = True if dist._backend == dist.dist_backend.GLOO else False
+        #self.warn_on_half = True if dist.backend == dist.backend.GLOO else False
+        self.warn_on_half = True if torch.distributed.is_gloo_available() else False
 
         self.module = module
         self.data_parallel_group = mpu.get_data_parallel_group()

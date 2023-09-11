@@ -1,4 +1,4 @@
-# coding=utf-8
+
 # Copyright (c) 2019, NVIDIA CORPORATION.  All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -443,7 +443,7 @@ class json_dataset(data.Dataset):
             generator = iter(jsons)
         else:
             def gen_helper():
-                with open(load_path, 'r') as f:
+                with open(load_path, 'r', encoding='latin-1') as f:
                     for row in f:
                         yield json.loads(row)
             generator = gen_helper()
@@ -485,8 +485,9 @@ class GPT2Dataset(data.Dataset):
             else:
                 lens = np.array([len(d['text']) if isinstance(d, dict)
                                  else len(d) for d in self.ds])
+            print('Lens: ', lens)
             self.total_len = np.sum(lens)
-            self.weighting = list(accumulate(lens))
+            self.weighting = list(accumulate(np.array([lens]).flatten()))
         else:
             self.weighting = None
 

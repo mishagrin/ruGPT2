@@ -502,7 +502,7 @@ def evaluate_and_print_results(prefix, data_iterator, model,
 
 def initialize_distributed(args):
     """Initialize torch.distributed."""
-
+    print(args)
     # Manually set the device ids.
     device = args.rank % torch.cuda.device_count()
     if args.local_rank is not None:
@@ -585,10 +585,10 @@ def main():
 
     # Timer.
     timers = Timers()
-
+    print('Get args!!!!!!!!!!!!!!!!!!!!!!!!!!')
     # Arguments.
     args = get_args()
-
+    print(args)
     writer = None
     if args.tensorboard_dir and args.rank == 0:
         try:
